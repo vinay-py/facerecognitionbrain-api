@@ -11,9 +11,11 @@ const image = require('./controllers/image');
 const db = knex({
   client: 'pg',
   connection: {
-    connectionString : process.env.DATABASE_URL,
-    ssl: true,
-  }
+    host: 'aa13swaih9vf45m.cnh04ctnmo0t.us-east-1.rds.amazonaws.com',
+    user: 'postgres',
+    password: 'postgres',
+	database: 'dbface'
+	}
 });
 
 const app = express();
@@ -21,7 +23,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/',(req, res) => {res.send('it is working!')})
+app.get('/',(req, res) => {res.send(`It is working! ${process.env.PORT} ${process.env.RDS_PORT}`)})
 app.post('/signin', (req, res) => {
 	signin.handleSignin(req, res, db, bcrypt)
 })
